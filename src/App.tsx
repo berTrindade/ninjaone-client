@@ -11,23 +11,12 @@ export function App() {
 
   const [isNewDeviceModalOpen, setIsNewDeviceModalOpen] = useState(false);
 
-  function handleOpenNewDeviceModal() {
-      setIsNewDeviceModalOpen(true);
-  }
-
-  function handleCloseNewDeviceModal() {
-      setIsNewDeviceModalOpen(false);
-  }
+  const handleOpenNewDeviceModal = () => setIsNewDeviceModalOpen(true);
+  const handleCloseNewDeviceModal = () => setIsNewDeviceModalOpen(false);
 
   return (
     <>
       <Header openNewDeviceModal={handleOpenNewDeviceModal} />
-
-      <Modal 
-        isOpen={isNewDeviceModalOpen}
-        onRequestClose={handleCloseNewDeviceModal}
-      />
-
       <Dashboard />
       <GlobalStyle />
     </>

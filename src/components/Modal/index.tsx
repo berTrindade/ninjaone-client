@@ -1,14 +1,15 @@
 import { FormEvent, useState } from "react";
 import ReactModal from "react-modal";
 import closeImg from "../../assets/close.svg";
-import { Container } from "../Modal/styles";
+import { Container } from "./styles";
 
 interface ModalProps {
     isOpen: boolean;
+    isEdit: boolean;
     onRequestClose: () => void;
 }
 
-export function Modal({ isOpen, onRequestClose }: ModalProps) { 
+export function Modal({ isOpen, isEdit, onRequestClose }: ModalProps) { 
 
     const [name, setName] = useState("");
     const [type, setType] = useState("");
@@ -18,10 +19,6 @@ export function Modal({ isOpen, onRequestClose }: ModalProps) {
 
     const handleCreateNewDevice = (event: FormEvent) => {
         event.preventDefault();
-
-        console.log({
-            name, type, capacity
-        });
     }
 
     return (
@@ -41,7 +38,7 @@ export function Modal({ isOpen, onRequestClose }: ModalProps) {
             </button>
 
             <Container onSubmit={handleCreateNewDevice}>
-                <h2>Add Device</h2>
+                <h2>{ isEdit ? 'Edit Device' : 'Add user'}</h2>
 
                 <input 
                     type="text" 
