@@ -5,7 +5,7 @@ export function Header() {
     return (
         <Container>
             <Content>
-                <img alt="Example of alt text" title="Example of title text"  src={logoImg} />
+                <img src={logoImg} alt="Ninja" />
                 <button type="button">
                     New Device
                 </button>
