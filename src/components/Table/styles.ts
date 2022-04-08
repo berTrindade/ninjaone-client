@@ -26,8 +26,9 @@ export const Container = styled.div`
             }
 
             &:last-child {
-                display: flex;
-                gap: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
             }
 
             button {

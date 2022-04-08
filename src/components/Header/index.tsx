@@ -1,12 +1,18 @@
+import { useState } from "react";
+import Modal from "react-modal";
 import logoImg from "../../assets/logo.svg";
 import { Container, Content } from './styles';
 
-export function Header() {
+interface HeaderProps {
+    openNewDeviceModal: () => void;
+}
+
+export function Header({ openNewDeviceModal }: HeaderProps) {
     return (
         <Container>
             <Content>
                 <img src={logoImg} alt="Ninja" />
-                <button type="button">
+                <button type="button" onClick={openNewDeviceModal}>
                     New Device
                 </button>
             </Content>
