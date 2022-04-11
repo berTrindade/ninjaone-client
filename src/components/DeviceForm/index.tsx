@@ -1,4 +1,4 @@
-import { SingleDeviceFilter } from "../FilterAndSort/Filters/SingleDeviceFilter";
+import { SingleDeviceFilter } from "../Filters/components/SingleDeviceFilter";
 import { Container } from "./styles";
 
 export function DeviceForm({

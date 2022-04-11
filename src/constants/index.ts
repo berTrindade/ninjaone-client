@@ -14,7 +14,7 @@ export const DEVICES_OPTIONS_MULTISELECT = [
 export const SORTING_OPTIONS = [
   {label: 'System Name', value: 'system_name'},
   {label: 'HDD Capacity', value: 'hdd_capacity'},
-  {label: 'type', value: 'type'},
+  {label: 'Type', value: 'type'},
 ];
 
 export const DIRECTION = {

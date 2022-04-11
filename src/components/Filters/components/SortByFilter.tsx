@@ -1,7 +1,7 @@
 import Select from "react-select";
 import { SORTING_OPTIONS } from "../../../constants";
 
-export function SortBy({ value, onChange }) {
+export function SortByFilter({ value, onChange }) {
 
   const selected = SORTING_OPTIONS.find(option => option.value === value)
 

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-
     table {
         width: 100%;
         border-spacing: 0 0.5rem;
+        overflow-x: auto;
 
         tr {
             &:hover {
@@ -38,16 +38,47 @@ export const Container = styled.div`
                 justify-content: center;
             }
 
-            button{
+            button {
                 display: flex;
                 margin: 0 auto;
                 background: transparent;
                 transition: 0.3s;
                 border: none;
+
                 &:hover{
                     opacity: 0.7;
                 }
+
+                padding: 0.5rem;
             }
         }
     }
+
+    @media screen and (max-width: 630px) {
+        table thead {
+          border: none;
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+        }
+        
+        table tr {
+          border-bottom: 3px solid #ddd;
+          display: block;
+        }
+        
+        table td {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          text-align: left;
+        }
+        
+        table td::before {
+          content: attr(data-label);
+          float: left;
+        }
+      }
 `;

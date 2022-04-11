@@ -4,12 +4,6 @@ import { FaTimes } from "react-icons/fa";
 import { useModal } from "../../hooks/useModal";
 import { useDevices } from "../../hooks/useDevices";
 import { DeviceForm } from "../DeviceForm";
-import { useEffect } from "react";
-
-// interface ModalProps {
-//     title: string;
-//     children: any;
-// }
 
 ReactModal.setAppElement('#root');
 

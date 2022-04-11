@@ -1,6 +1,6 @@
 import { Container } from "./styles";
 import { Table } from "../Table/index";
-import { Filters } from "../FilterAndSort/Filters/Filters";
+import { Filters } from "../Filters/index";
 
 export function Dashboard() {
     return (

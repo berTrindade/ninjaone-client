@@ -1,23 +1,24 @@
-import { MultiDeviceFilter } from './MultiDeviceFilter';
-import { SortBy } from './SortBy';
-import { DirectionFilter } from './DirectionFilter';
-import { useFilter } from "../../../hooks/useFilters";
+import { MultiDeviceFilter } from './components/MultiDeviceFilter';
+import { SortByFilter } from './components/SortByFilter';
+import { DirectionFilter } from './components/DirectionFilter';
+import { useFilter } from "../../hooks/useFilters";
+import { Container, Filter, TWO } from './styles';
 
 export function Filters() {
   
   const { deviceTypes, setDeviceTypes, sortBy, setSortBy, direction, toggleDirection } = useFilter();
 
   return (
-    <div>
-      <div> Device type : 
+    <Container>
+      <Filter> 
         <MultiDeviceFilter
           value={deviceTypes}
           onChange={setDeviceTypes}
         />
-      </div>
-      <div> Sort by :  
-        <div>
-          <SortBy
+      </Filter>
+      <Filter>
+          <TWO>
+          <SortByFilter
             value={sortBy}
             onChange={setSortBy}
           />
@@ -25,8 +26,8 @@ export function Filters() {
             direction={direction}
             changeDirection={toggleDirection}
           />
-        </div>
-      </div>
-    </div>
+          </TWO>  
+      </Filter>
+    </Container>
   );
 };
