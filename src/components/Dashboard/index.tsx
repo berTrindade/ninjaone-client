@@ -1,11 +1,11 @@
 import { Container } from "./styles";
 import { Table } from "../Table/index";
-import { FilterAndSort } from "../FilterAndSort/index";
+import { Filters } from "../FilterAndSort/Filters/Filters";
 
 export function Dashboard() {
     return (
       <Container>
-          <FilterAndSort />
+          <Filters />
           <Table />
       </Container>  
     );

@@ -4,18 +4,23 @@ const ModalContext = createContext({});
 
 export const ModalProvider: React.FC = ({ children }) => {
 
-  const [state, setState] = useState({ visible: false });
+  const [isOpen, setIsOpen] = useState(false);
   
-  const openModal = (payload: React.SetStateAction<{ visible: boolean; }>) => setState({ ...payload, visible: true });
-  const closeModal = () => setState({ visible: false });
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   return (
-    <ModalContext.Provider value={{ state,  openModal, closeModal }}>
+    <ModalContext.Provider value={{ isOpen, openModal, closeModal }}>
         {children}
     </ModalContext.Provider>
   );
 };
 
-const useModal = () => useContext(ModalContext);
+export const useModal = () => {
 
-export { useModal }
+  const context = useContext(ModalContext);
+
+  if (!context) throw new Error("useModal must be used within ModalProvider");
+  
+  return context;
+}

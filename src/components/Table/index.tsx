@@ -1,85 +1,69 @@
-import { useState } from "react";
-import { Modal } from "../Modal";
-import deleteImg from "../../assets/delete.svg";
+import { Key, useMemo } from "react";
 import { Container } from "./styles";
+import { useDevices } from "../../hooks/useDevices";
+import { Device } from "../Device";
+import { useModal } from "../../hooks/useModal";
+import { useFilter } from "../../hooks/useFilters";
+import { DIRECTION } from "../../constants";
 
 export function Table() {
 
-    const [isNewDeviceModalOpen, setIsNewDeviceModalOpen] = useState(false);
-    const [isEdit, seIsEdit] = useState(false);
+    const { devices, deleteDevices, updateSelectedDevice } = useDevices();
+    const { openModal } = useModal();
+    const { sortBy = '', deviceTypes, direction = DIRECTION.SORT_DIRECTION_ASC} = useFilter();
 
-    const handleOpenEditDeviceModal = () =>  {
-        setIsNewDeviceModalOpen(true);
-        seIsEdit(true);
+    const handleEditDevice = (device) => {
+        openModal();
+        updateSelectedDevice(device);
     }
 
-    const handleCloseNewDeviceModal = () => {
-        setIsNewDeviceModalOpen(false);
-        seIsEdit(false);
-    }
+    const handleDeleteDevice = (device) => deleteDevices(device);
+
+    const filteredDevices = useMemo(()=> devices.filter(
+        device =>{
+    
+          const props = deviceTypes.map(a => a.value);    
+          return deviceTypes.length === 0 ? true : props.includes(device.type);
+        }
+    ).sort((a, b)=> {
+        if(sortBy === '') return 0; 
+        switch (sortBy) {
+          case 'hdd_capacity':
+            return direction === DIRECTION.SORT_DIRECTION_ASC ? a.hdd_capacity - b.hdd_capacity: b.hdd_capacity - a.hdd_capacity
+        
+            default:
+                if(a[sortBy] < b[sortBy]) { 
+                return direction === DIRECTION.SORT_DIRECTION_ASC ? -1 : 1; 
+                }
+                if(a[sortBy] > b[sortBy]) { 
+                return  direction === DIRECTION.SORT_DIRECTION_ASC ? 1 : -1; 
+                }
+                return 0;
+            }
+    }),[sortBy, deviceTypes, devices, direction]); 
 
     return (
-        <>
-            <Container>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                            <button type="button" onClick={() => {}}>
-                                ID
-                            </button>
-                            </th>
-                            <th>System Name</th>
-                            <th>Type</th>
-                            <th>HDD Capacity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>SUSAN-DESKTOP</td>
-                            <td>Window Workstation</td>
-                            <td>128 GB</td>
-                            <td>
-                                <button type="button">
-                                    <img src={deleteImg} alt="Delete" />
-                                </button>
-                                <button type="button">
-                                    <img src={deleteImg} alt="Delete" />
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>MAC-LOCAL-FREDDY</td>
-                            <td>Mac</td>
-                            <td>256 GB</td>
-                            <td>
-                                <button type="button">
-                                    <img src={deleteImg} alt="Delete" />
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>SMART-SERVER</td>
-                            <td>Window Server</td>
-                            <td>1024 GB</td>
-                            <td>
-                                <button type="button">
-                                    <img src={deleteImg} alt="Delete" />
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Container>
-            <Modal 
-                isEdit={isEdit}
-                isOpen={isNewDeviceModalOpen}
-                onRequestClose={handleCloseNewDeviceModal}
-            />
-        </>
+        <Container>
+            <table>
+                <thead>
+                    <tr>
+                        <th>System Name</th>
+                        <th>Type</th>
+                        <th>HDD Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {filteredDevices.map((item: { id: Key | null | undefined; }) => (
+                    <Device 
+                        key={item.id}
+                        item={item} 
+                        handleEdit={handleEditDevice}
+                        handleRemove={handleDeleteDevice}
+                    />
+                ))}
+                </tbody>
+            </table>
+        </Container>
     );
 }
 
