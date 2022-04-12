@@ -2,12 +2,20 @@
 
 ## Features include:
 
-- The main view is a dashboard where user can see all devices listed.
+- The main view is a dashboard where users can see all devices listed.
+- User can filter devices by one Type.
+- User can sort devices by system name.
+- User can sort devices by HDD Capacity from low to high.
+- User can Add, Update or Delete devices.
 - Styled using [Styled Components](https://styled-components.com/)
 - Filters using [React-Select](https://react-select.com/upgrade-guide)
 - Multiple device type filter
 - Sorting and Acendent and Descendent
 - Form validation
+
+### How it looks like 
+
+![screenshot](https://github.com/berTrindade/ninjaone-client/blob/main/src/assets/screenshot.png)
 
 # Installation and usage
 
