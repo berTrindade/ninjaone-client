@@ -1,7 +1,7 @@
 
 import ReactModal from "react-modal";
 import { FaTimes } from "react-icons/fa";
-import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/useModal/index";
 import { useDevices } from "../../hooks/useDevices";
 import { DeviceForm } from "../DeviceForm";
 

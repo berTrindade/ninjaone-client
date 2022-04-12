@@ -19,28 +19,34 @@ export function Table() {
 
     const handleDeleteDevice = (device) => deleteDevices(device);
 
-    const filteredDevices = useMemo(()=> devices.filter(
-        device =>{
-    
-          const props = deviceTypes.map(a => a.value);    
-          return deviceTypes.length === 0 ? true : props.includes(device.type);
-        }
-    ).sort((a, b)=> {
-        if(sortBy === '') return 0; 
-        switch (sortBy) {
-          case 'hdd_capacity':
-            return direction === DIRECTION.SORT_DIRECTION_ASC ? a.hdd_capacity - b.hdd_capacity: b.hdd_capacity - a.hdd_capacity
+    const filteredDeviceTypes =  device => {
+        const types = deviceTypes.map(a => a.value);    
+        return deviceTypes.length === 0 ? true : types.includes(device.type);
+    }
+
+    const filteredDevices = useMemo(
         
-            default:
-                if(a[sortBy] < b[sortBy]) { 
-                return direction === DIRECTION.SORT_DIRECTION_ASC ? -1 : 1; 
-                }
-                if(a[sortBy] > b[sortBy]) { 
-                return  direction === DIRECTION.SORT_DIRECTION_ASC ? 1 : -1; 
-                }
-                return 0;
+    () => devices.filter(filteredDeviceTypes).sort((filterA, filterB) => {
+
+        let filter;
+
+        if(sortBy === '') return 0; 
+
+        if (sortBy == 'hdd_capacity') 
+            filter = direction === DIRECTION.SORT_DIRECTION_ASC ? 
+                filterA.hdd_capacity - filterB.hdd_capacity: filterB.hdd_capacity - filterA.hdd_capacity
+        else {
+            if(filterA[sortBy] < filterB[sortBy])
+                filter = direction === DIRECTION.SORT_DIRECTION_ASC ? -1 : 1; 
+        
+            if(filterA[sortBy] > filterB[sortBy]) 
+                filter = direction === DIRECTION.SORT_DIRECTION_ASC ? 1 : -1;                    
             }
-    }),[sortBy, deviceTypes, devices, direction]); 
+
+        return filter;
+    }
+    
+    ),[sortBy, deviceTypes, devices, direction]); 
 
     return (
         <Container>
