@@ -13,6 +13,9 @@ export function Table() {
     const { sortBy = '', deviceTypes, direction = DIRECTION.SORT_DIRECTION_ASC} = useFilter();
 
     const handleEditDevice = (device) => {
+
+        console.log('device', device)
+
         openModal();
         updateSelectedDevice(device);
     }

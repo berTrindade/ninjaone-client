@@ -9,7 +9,9 @@ const deviceOptions = [
 
 export function SingleDeviceFilter({ value, onChange }) {
 
-  const selected = deviceOptions.find(option => option.value === value)
+  console.log('value', value)
+
+  const selected = deviceOptions.find(option => option.value === value);
 
   return (
     <Select

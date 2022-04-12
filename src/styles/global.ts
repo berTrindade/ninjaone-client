@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
         --shape: #FFFFFF;
         --green: #33CC95;
         --input-background: #E7E9EE;
+        --error: #BF1650;
     }
 
     * {

@@ -13,6 +13,9 @@ export function Modal() {
     const { isOpen, closeModal } = useModal();
 
     const handleSaveDevice = () => {
+
+        console.log('selectedDevice modal', selectedDevice.type);
+
         if(
           selectedDevice.system_name === '' ||
           selectedDevice.type === '' ||
@@ -26,6 +29,8 @@ export function Modal() {
     }
 
     const handleChange = (name, value) => {
+        console.log('first handleChange');
+
         updateSelectedDevice({
           ...selectedDevice,
           [name]: value,
