@@ -9,25 +9,14 @@ export const DeviceProvider = ({ children }) => {
   const [devices, setDevices] = useState([]);
   const [selectedDevice, updateSelectedDevice] = useState(INITIAL_DEVICE_DATA);
   
-  console.log('selectedDevice deviceProvider :>> ', selectedDevice);
-
   useEffect(()=>{
-
-    console.log('first time');
-
     fetchDevices();
   }, []);
 
   const fetchDevices = async () => {
     try {
 
-      console.log('fetch')
-
       const response = await getDevices();
-
-      console.log('response', response)
-
-
       setDevices(response);
 
     } catch (error) {
@@ -37,10 +26,7 @@ export const DeviceProvider = ({ children }) => {
 
   const updateDevices = async () => {
     try {
-
-      console.log('first');
-      console.log('selectedDevice useDevices :>> ', selectedDevice);
-
+      
       await updateDevice(selectedDevice.id, {
         ...selectedDevice
       });
