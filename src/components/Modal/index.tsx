@@ -9,7 +9,7 @@ ReactModal.setAppElement('#root');
 
 export function Modal() { 
 
-    const { selectedDevice, updateDevices, addDevices, updateSelectedDevice } = useDevices();
+    const { selectedDevice, updateDevices, addDevices } = useDevices();
     const { isOpen, closeModal } = useModal();
 
     const handleSaveDevice = () => {
@@ -26,12 +26,18 @@ export function Modal() {
         closeModal();
     }
 
-    const handleChange = (name, value) => {
-        updateSelectedDevice({
-          ...selectedDevice,
-          [name]: value,
-        })
-    }
+    // const handleChange = (name, value) => {
+
+    //     console.log('name :>> ', name);
+    //     console.log('value', value)
+
+    //     updateSelectedDevice({
+    //       ...selectedDevice,
+    //       [name]: value,
+    //     })
+    // }
+
+    console.log('selectedDevice iD', selectedDevice)
 
     const getTitle = () => selectedDevice.id ? 'Edit device' : 'Add device'
 
@@ -54,8 +60,6 @@ export function Modal() {
 
                     <h2>{getTitle()}</h2>
                     <DeviceForm
-                        item={selectedDevice}
-                        handleChange={handleChange}
                         handleSave={handleSaveDevice}
                         handleCancel={closeModal}
                     />

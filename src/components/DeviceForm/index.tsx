@@ -22,19 +22,19 @@ const registerOptions = {
 };
 
 export function DeviceForm({
-    item = {}, 
-    handleChange, 
     handleSave, 
     handleCancel,
 }) {
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm<Device>({ defaultValues: item });
+    const { selectedDevice, updateDevices, updateSelectedDevice } = useDevices();
+    const { register, handleSubmit, control, formState: { errors } } = useForm<Device>({ defaultValues: selectedDevice, mode: "onBlur" });
 
     const onSubmit = handleSubmit((data) => {
+        updateSelectedDevice(data);
 
         console.log('data', data);
 
-        handleSave();
+        updateDevices();
     });
 
     return (
@@ -45,8 +45,6 @@ export function DeviceForm({
                 placeholder="Name"
                 id="system_name"
                 name="system_name"
-                value={item.system_name}
-                onChange={({ target: { name, value }}) => handleChange(name, value)}
             />
 
             { errors?.system_name && <ErrorMessage>{errors.system_name.message}</ErrorMessage> }
@@ -55,12 +53,12 @@ export function DeviceForm({
                 control={control}
                 rules={registerOptions.type}
                 name="type"
-                render={({ field: { value }}) => {
+                render={({ field: { value, onChange }}) => {
 
                     return (
                     <SingleDeviceFilter
-                        value={item.type}
-                        onChange={item => handleChange("type", item)} 
+                        value={value}
+                        onChange={item => onChange(item)} 
                     />)
                 }}
             />
@@ -73,9 +71,7 @@ export function DeviceForm({
                 min={0}
                 id="hdd_capacity"
                 name="hdd_capacity"
-                value={item.hdd_capacity}
                 placeholder="HDD Capacity"
-                onChange={({ target: { name, value }}) => handleChange(name, value)}
             />
 
             { errors?.hdd_capacity && <ErrorMessage>{errors.hdd_capacity.message}</ErrorMessage> }

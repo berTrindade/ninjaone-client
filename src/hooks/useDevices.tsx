@@ -27,6 +27,8 @@ export const DeviceProvider = ({ children }) => {
   const updateDevices = async () => {
     try {
       
+      console.log('selectedDevice useDevice :>> ', selectedDevice);
+
       await updateDevice(selectedDevice.id, {
         ...selectedDevice
       });
