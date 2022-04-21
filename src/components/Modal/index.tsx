@@ -4,40 +4,20 @@ import { FaTimes } from "react-icons/fa";
 import { useModal } from "../../hooks/useModal/index";
 import { useDevices } from "../../hooks/useDevices";
 import { DeviceForm } from "../DeviceForm";
-
-ReactModal.setAppElement('#root');
+import { useEffect } from "react";
 
 export function Modal() { 
 
-    const { selectedDevice, updateDevices, addDevices } = useDevices();
     const { isOpen, closeModal } = useModal();
+    const { selectedDevice, addDevices, updateDevices } = useDevices();
 
-    const handleSaveDevice = () => {
-        console.log('first');
-
-        console.log('selectedDevice', selectedDevice)
-
-        if(selectedDevice.id) {
-
-            console.log('selectedDevice.id', selectedDevice.id)
-
+    useEffect(() => {
+        if(selectedDevice.id) 
             updateDevices();
-        }
-        else {
-            console.log('selectedDevice')
+        else addDevices();
+    }, [selectedDevice]);
 
-            addDevices();
-        } 
-        
-        closeModal();
-    }
-
-    // const handleChange = (name, value) => {
-    //     updateSelectedDevice({
-    //       ...selectedDevice,
-    //       [name]: value,
-    //     })
-    // }
+    const handleOnFinish = () => closeModal();
 
     function getTitle() {
         return selectedDevice.id ? 'Edit device' : 'Add device';
@@ -62,7 +42,7 @@ export function Modal() {
 
                     <h2>{getTitle()}</h2>
                     <DeviceForm
-                        handleSave={handleSaveDevice}
+                        handleOnFinish={handleOnFinish}
                         handleCancel={closeModal}
                     />
                 </ReactModal> 

@@ -17,7 +17,7 @@ export const deleteDevice = async (id: string) => {
 }
 
 export const addDevice = async (data: any) => {
-    await axios.post(`http://localhost:3333/devices/`, {
+    await axios.post(`http://localhost:3333/devices`, {
         ...data
     });
 }

@@ -6,12 +6,10 @@ import { addDevice, deleteDevice, getDevices, updateDevice } from "../services/d
 export const DeviceContext = createContext({});
 
 export const DeviceProvider = ({ children }) => {
+
   const [devices, setDevices] = useState([]);
-  const [selectedDevice, updateSelectedDevice] = useState(() => INITIAL_DEVICE_DATA);
-
-  // console.clear();
-
-  console.log('selectedDevice :>> ', selectedDevice);
+  const [editing, setEditing] = useState(false);
+  const [selectedDevice, updateSelectedDevice] = useState(INITIAL_DEVICE_DATA);
 
   useEffect(()=> {
     fetchDevices();
@@ -56,8 +54,6 @@ export const DeviceProvider = ({ children }) => {
   const addDevices = async () => {
     try {
 
-      console.log('selectedDevice useDeviec', selectedDevice);
-
       await addDevice(selectedDevice);
   
       fetchDevices();
@@ -75,7 +71,9 @@ export const DeviceProvider = ({ children }) => {
       setDevices,
       addDevices,
       updateDevices,
-      deleteDevices
+      deleteDevices,
+      editing,
+      setEditing
     }}>
       {children}
     </DeviceContext.Provider>

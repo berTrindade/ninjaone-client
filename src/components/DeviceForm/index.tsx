@@ -2,7 +2,6 @@ import SingleDeviceFilter from "../Filters/components/SingleDeviceFilter";
 import { ActionsButtonContainer, Container, ErrorMessage } from "./styles";
 import { useForm, Controller } from "react-hook-form";
 import { useDevices } from "../../hooks/useDevices";
-import { updateDevice } from "../../services/devices";
 
 type Device = {
     system_name: string, 
@@ -11,39 +10,44 @@ type Device = {
 }
 
 const registerOptions = {
-    system_name: { required: "System name is required" },
+    system_name: { 
+        required: "System name is required",
+        pattern: {
+            value: /^[^\s]+(?:$|.*[^\s]+$)/,
+            message: "Entered value cant start/end or contain only white spacing"
+        }
+    },
     hdd_capacity: { 
-        required: "required",
+        required: "HDD Capacity is required",
         minLength: {
             value: 2,
-            message: "HDD Capacity is required"
-        }
+            message: "Value should have at least 2 digits"
+        },
+        pattern: {
+            value: /^(0|[1-9]\d*)(\.\d+)?$/,
+            message: "A number should be greater than zero"
+        },
     },
     type: { required: "Type is required"}
 };
 
 export function DeviceForm({    
-    // handleChange,
-    handleSave, 
+    handleOnFinish, 
     handleCancel,
 }) {
 
-    const { selectedDevice, updateDevices, updateSelectedDevice } = useDevices();
+    const { selectedDevice, updateSelectedDevice } = useDevices();
     const { register, handleSubmit, control, formState: { errors } } = useForm<Device>({ defaultValues: selectedDevice, mode: "onBlur" });
 
     const onSubmit = handleSubmit(data => {
-
-        debugger;
-
-        console.log('data', data);
-
         updateSelectedDevice({
+            ...selectedDevice,
             system_name: data.system_name,
             hdd_capacity: data.hdd_capacity,
-            type: data.type.label
+            type: data.type.label || data.type
         });
 
-        handleSave();
+        handleOnFinish();
     });
 
     return (
@@ -62,11 +66,7 @@ export function DeviceForm({
                 control={control}
                 rules={registerOptions.type}
                 name="type"
-                render={({ field }) => {
-                    return (<SingleDeviceFilter
-                        field={field}
-                    />)
-                }}
+                render={({ field }) => <SingleDeviceFilter field={field} /> }
             />
 
             { errors?.type && <ErrorMessage>{errors.type.message}</ErrorMessage> }

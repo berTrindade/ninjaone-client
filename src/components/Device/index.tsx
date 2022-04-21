@@ -2,7 +2,9 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 export function Device({ item, handleEdit, handleRemove }) {
 
-  if(!item.id || !item.system_name || !item.type || !item.hdd_capacity ) return null;
+    console.log('item :>> ', item);
+
+//   if(!item.id || !item.system_name || !item.type || !item.hdd_capacity ) return null;
 
   return (
         <tr>

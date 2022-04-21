@@ -59,7 +59,7 @@ export function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                {filteredDevices.map((item: { id: Key | null | undefined; }) => (
+                {filteredDevices.map((item) => (
                     <Device 
                         key={item.id}
                         item={item} 
