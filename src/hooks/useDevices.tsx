@@ -7,9 +7,13 @@ export const DeviceContext = createContext({});
 
 export const DeviceProvider = ({ children }) => {
   const [devices, setDevices] = useState([]);
-  const [selectedDevice, updateSelectedDevice] = useState(INITIAL_DEVICE_DATA);
-  
-  useEffect(()=>{
+  const [selectedDevice, updateSelectedDevice] = useState(() => INITIAL_DEVICE_DATA);
+
+  // console.clear();
+
+  console.log('selectedDevice :>> ', selectedDevice);
+
+  useEffect(()=> {
     fetchDevices();
   }, []);
 
@@ -27,8 +31,6 @@ export const DeviceProvider = ({ children }) => {
   const updateDevices = async () => {
     try {
       
-      console.log('selectedDevice useDevice :>> ', selectedDevice);
-
       await updateDevice(selectedDevice.id, {
         ...selectedDevice
       });
@@ -53,6 +55,8 @@ export const DeviceProvider = ({ children }) => {
 
   const addDevices = async () => {
     try {
+
+      console.log('selectedDevice useDeviec', selectedDevice);
 
       await addDevice(selectedDevice);
   

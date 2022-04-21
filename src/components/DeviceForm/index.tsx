@@ -1,4 +1,4 @@
-import { SingleDeviceFilter } from "../Filters/components/SingleDeviceFilter";
+import SingleDeviceFilter from "../Filters/components/SingleDeviceFilter";
 import { ActionsButtonContainer, Container, ErrorMessage } from "./styles";
 import { useForm, Controller } from "react-hook-form";
 import { useDevices } from "../../hooks/useDevices";
@@ -7,7 +7,7 @@ import { updateDevice } from "../../services/devices";
 type Device = {
     system_name: string, 
     hdd_capacity: number,
-    type: string,
+    type: any,
 }
 
 const registerOptions = {
@@ -19,9 +19,11 @@ const registerOptions = {
             message: "HDD Capacity is required"
         }
     },
+    type: { required: "Type is required"}
 };
 
-export function DeviceForm({
+export function DeviceForm({    
+    // handleChange,
     handleSave, 
     handleCancel,
 }) {
@@ -29,12 +31,19 @@ export function DeviceForm({
     const { selectedDevice, updateDevices, updateSelectedDevice } = useDevices();
     const { register, handleSubmit, control, formState: { errors } } = useForm<Device>({ defaultValues: selectedDevice, mode: "onBlur" });
 
-    const onSubmit = handleSubmit((data) => {
-        updateSelectedDevice(data);
+    const onSubmit = handleSubmit(data => {
+
+        debugger;
 
         console.log('data', data);
 
-        updateDevices();
+        updateSelectedDevice({
+            system_name: data.system_name,
+            hdd_capacity: data.hdd_capacity,
+            type: data.type.label
+        });
+
+        handleSave();
     });
 
     return (
@@ -53,12 +62,9 @@ export function DeviceForm({
                 control={control}
                 rules={registerOptions.type}
                 name="type"
-                render={({ field: { value, onChange }}) => {
-
-                    return (
-                    <SingleDeviceFilter
-                        value={value}
-                        onChange={item => onChange(item)} 
+                render={({ field }) => {
+                    return (<SingleDeviceFilter
+                        field={field}
                     />)
                 }}
             />

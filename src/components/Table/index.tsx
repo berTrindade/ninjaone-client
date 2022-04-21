@@ -8,7 +8,7 @@ import { DIRECTION } from "../../constants";
 
 export function Table() {
 
-    const { devices, deleteDevices, updateSelectedDevice } = useDevices();
+    const { devices = [], deleteDevices, updateSelectedDevice } = useDevices();
     const { openModal } = useModal();
     const { sortBy = '', deviceTypes, direction = DIRECTION.SORT_DIRECTION_ASC} = useFilter();
 

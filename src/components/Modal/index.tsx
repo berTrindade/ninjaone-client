@@ -13,33 +13,35 @@ export function Modal() {
     const { isOpen, closeModal } = useModal();
 
     const handleSaveDevice = () => {
+        console.log('first');
 
-        if(
-          selectedDevice.system_name === '' ||
-          selectedDevice.type === '' ||
-          selectedDevice.hdd_capacity === ''
-        ) return;
-          
-        if(selectedDevice.id) updateDevices();
-        else addDevices();
+        console.log('selectedDevice', selectedDevice)
+
+        if(selectedDevice.id) {
+
+            console.log('selectedDevice.id', selectedDevice.id)
+
+            updateDevices();
+        }
+        else {
+            console.log('selectedDevice')
+
+            addDevices();
+        } 
         
         closeModal();
     }
 
     // const handleChange = (name, value) => {
-
-    //     console.log('name :>> ', name);
-    //     console.log('value', value)
-
     //     updateSelectedDevice({
     //       ...selectedDevice,
     //       [name]: value,
     //     })
     // }
 
-    console.log('selectedDevice iD', selectedDevice)
-
-    const getTitle = () => selectedDevice.id ? 'Edit device' : 'Add device'
+    function getTitle() {
+        return selectedDevice.id ? 'Edit device' : 'Add device';
+    }
 
     return (
         <>

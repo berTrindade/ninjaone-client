@@ -7,19 +7,22 @@ const deviceOptions = [
   { label: DEVICES_OPTIONS.MAC, value: DEVICES_OPTIONS.MAC}
 ];
 
-export function SingleDeviceFilter({ value, onChange }) {
+const SingleDeviceFilter = ({ field }) => {
+
+  const { value } = field;
 
   const selected = deviceOptions.find(option => option.value === value);
 
   return (
     <Select
+      {...field}
       id="type"
-      name="type"
       value={selected}
       options={deviceOptions}
       getOptionLabel={(option) => option.label}
       getOptionValue={(option) => option.value}
-      onChange={(option) =>onChange(option.value)}
     /> 
   );
 };
+
+export default SingleDeviceFilter;

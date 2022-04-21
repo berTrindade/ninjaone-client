@@ -6,11 +6,13 @@ import { Container, Content } from './styles';
 
 export function Header() {
 
+    console.log('header :>> ');
+
     const { openModal } = useModal();
-    const { updateSelectedDevice } = useDevices()
 
     const handleAddDevice = () => {
-        updateSelectedDevice(INITIAL_DEVICE_DATA);
+        console.log("handleAddDevice")
+
         openModal();
     }
 
